@@ -8,21 +8,25 @@ Group:		Applications/Math
 Source0:	ftp://ftp.kde.org/pub/kde/stable/apps/KDE3.x/scientific/%{name}-%{version}.tar.gz
 # Source0-md5:	bfd6e196850a8883b9c12553d9c7a910
 URL:		http://kst.kde.org
+BuildRequires:	cfitsio-devel
+BuildRequires:	gsl-devel
 BuildRequires:	kdelibs-devel
 BuildRequires:	netcdf-devel
-BuildRequires:	gsl-devel
-BuildRequires:	cfitsio-devel
+BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Kst is a real-time data viewing and plotting tool with basic data
 analysis functionality.
 
+%description -l pl
+Kst to narzêdzie do przegl±dania danych i rysowania wykresów w czasie
+rzeczywistym z podstawowymi funkcjami analizy danych.
+
 %prep
 %setup -q
 
 %build
-
 kde_appsdir="%{_desktopdir}/kde"; export kde_appsdir
 kde_htmldir="%{_kdedocdir}"; export kde_htmldir
 
@@ -39,9 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-mv $RPM_BUILD_ROOT%{_desktopdir}/kde/Applications/Sciences/* $RPM_BUILD_ROOT%{_desktopdir}/kde/
+mv $RPM_BUILD_ROOT%{_desktopdir}/kde/Applications/Sciences/* $RPM_BUILD_ROOT%{_desktopdir}/kde
 install -d $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
-mv $RPM_BUILD_ROOT%{_datadir}/apps/kst/tutorial ./
+mv $RPM_BUILD_ROOT%{_datadir}/apps/kst/tutorial .
 
 %find_lang %{name} --with-kde
 
@@ -74,6 +78,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/servicetypes/kst
 
 #This is probably need for plugin development. Move to devel subpackage
-%{_includedir}/*
-%attr(755,root,root) %{_libdir}/*.so
-%{_libdir}/*.la
+#%{_includedir}/*
+#%attr(755,root,root) %{_libdir}/*.so
+#%{_libdir}/*.la
