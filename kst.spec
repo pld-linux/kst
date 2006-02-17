@@ -1,12 +1,12 @@
 Summary:	A data viewing program for KDE
 Summary(pl):	Program do przegl±dania danych pod KDE
 Name:		kst
-Version:	1.1.0
+Version:	1.2.0
 Release:	0.1
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://ftp.kde.org/pub/kde/stable/apps/KDE3.x/scientific/%{name}-%{version}.tar.gz
-# Source0-md5:	bfd6e196850a8883b9c12553d9c7a910
+# Source0-md5:	789aac131edb24cdefbb90634cbb4b56
 URL:		http://kst.kde.org
 BuildRequires:	cfitsio-devel
 BuildRequires:	gsl-devel
@@ -23,6 +23,18 @@ analysis functionality.
 Kst to narzêdzie do przegl±dania danych i rysowania wykresów w czasie
 rzeczywistym z podstawowymi funkcjami analizy danych.
 
+%package devel
+Summary:	kst header files
+Summary(pl):	Pliki nag³ówkowe do kst
+Group:		Development/Libraries
+Requires:	%{name} = %{version}
+
+%description devel
+kst files for developing applications.
+
+%description devel -l pl
+Pliki nag³ówkowe potrzebne przy tworzeniu innych aplikacji.
+
 %prep
 %setup -q
 
@@ -32,8 +44,7 @@ kde_htmldir="%{_kdedocdir}"; export kde_htmldir
 
 %configure \
 	--%{!?debug:dis}%{?debug:en}able-debug \
-	--disable-rpath \
-	--enable-final
+	--disable-rpath
 
 %{__make}
 
@@ -47,7 +58,12 @@ mv $RPM_BUILD_ROOT%{_desktopdir}/kde/Applications/Sciences/* $RPM_BUILD_ROOT%{_d
 install -d $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 mv $RPM_BUILD_ROOT%{_datadir}/apps/kst/tutorial .
 
-%find_lang %{name} --with-kde
+%find_lang %{name} --all-name --with-kde
+## empty translation
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/ca/LC_MESSAGES/*.mo
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/is/LC_MESSAGES/*.mo
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/mt/LC_MESSAGES/kstplugineditor.mo
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/nb/LC_MESSAGES/kst.mo
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -57,27 +73,28 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc README 
-%doc tutorial
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/*.so.*.*
 %attr(755,root,root) %{_libdir}/kde3/*.so
-%{_libdir}/kde3/*.la
-%dir %{_libdir}/kde3/kstplugins
 %attr(755,root,root) %{_libdir}/kde3/kstplugins/*.so
+%doc README tutorial
+%dir %{_libdir}/kde3/kstplugins
 %{_libdir}/kde3/kstplugins/*.xml
 %{_libdir}/kde3/kstplugins/*.la
-%{_desktopdir}/kde/*
+%{_libdir}/kde3/*.la
 %{_datadir}/apps/kconf_update/*
 %{_datadir}/apps/kst
 %{_datadir}/config/colors/*
-%{_iconsdir}/*/*/*/*
-%{_mandir}/man1/*
 %{_datadir}/mimelnk/application/*
 %{_datadir}/services/kst
 %{_datadir}/servicetypes/kst
+%{_desktopdir}/kde/*
+%{_mandir}/man1/*
+%{_iconsdir}/*/*/*/*
 
-#This is probably need for plugin development. Move to devel subpackage
-#%{_includedir}/*
-#%attr(755,root,root) %{_libdir}/*.so
-#%{_libdir}/*.la
+%files devel -f %{name}.lang
+%defattr(644,root,root,755)
+%{_includedir}/*
+%{_libdir}/*.la
+%{_libdir}/kde3/plugins/designer/kstwidgets.la
+%{_libdir}/kde3/plugins/designer/kstwidgets.so
