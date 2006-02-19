@@ -10,8 +10,9 @@ Source0:	ftp://ftp.kde.org/pub/kde/stable/apps/KDE3.x/scientific/%{name}-%{versi
 URL:		http://kst.kde.org
 BuildRequires:	cfitsio-devel
 BuildRequires:	gsl-devel
-BuildRequires:	kdelibs-devel
+BuildRequires:	kdelibs-devel >= 9:3.1
 BuildRequires:	netcdf-devel
+BuildRequires:	readline-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -28,6 +29,7 @@ Summary:	kst header files
 Summary(pl):	Pliki nag³ówkowe do kst
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	kdelibs-devel >= 9:3.1
 
 %description devel
 kst files for developing applications.
@@ -39,12 +41,12 @@ Pliki nag³ówkowe potrzebne przy tworzeniu innych aplikacji.
 %setup -q
 
 %build
-kde_appsdir="%{_desktopdir}/kde"; export kde_appsdir
 kde_htmldir="%{_kdedocdir}"; export kde_htmldir
 
 %configure \
 	--%{!?debug:dis}%{?debug:en}able-debug \
-	--disable-rpath
+	--disable-rpath \
+	--with-qt-libraries=%{_libdir}
 
 %{__make}
 
@@ -52,9 +54,9 @@ kde_htmldir="%{_kdedocdir}"; export kde_htmldir
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	appsdir=%{_desktopdir}/kde
 
-mv $RPM_BUILD_ROOT%{_desktopdir}/kde/Applications/Sciences/* $RPM_BUILD_ROOT%{_desktopdir}/kde
 install -d $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 mv $RPM_BUILD_ROOT%{_datadir}/apps/kst/tutorial .
 
@@ -87,7 +89,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/*/*/*/*
 %{_mandir}/man1/*
 
-%files devel -f %{name}.lang
+%files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/*.so
 %{_libdir}/*.la
