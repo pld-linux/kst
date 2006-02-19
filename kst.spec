@@ -27,7 +27,7 @@ rzeczywistym z podstawowymi funkcjami analizy danych.
 Summary:	kst header files
 Summary(pl):	Pliki nag³ówkowe do kst
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 kst files for developing applications.
@@ -59,11 +59,6 @@ install -d $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 mv $RPM_BUILD_ROOT%{_datadir}/apps/kst/tutorial .
 
 %find_lang %{name} --all-name --with-kde
-## empty translation
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/ca/LC_MESSAGES/*.mo
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/is/LC_MESSAGES/*.mo
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/mt/LC_MESSAGES/kstplugineditor.mo
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/nb/LC_MESSAGES/kst.mo
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -73,15 +68,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
+%doc README tutorial
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/*.so.*.*
 %attr(755,root,root) %{_libdir}/kde3/*.so
-%attr(755,root,root) %{_libdir}/kde3/kstplugins/*.so
-%doc README tutorial
-%dir %{_libdir}/kde3/kstplugins
-%{_libdir}/kde3/kstplugins/*.xml
-%{_libdir}/kde3/kstplugins/*.la
 %{_libdir}/kde3/*.la
+%dir %{_libdir}/kde3/kstplugins
+%attr(755,root,root) %{_libdir}/kde3/kstplugins/*.so
+%{_libdir}/kde3/kstplugins/*.la
+%{_libdir}/kde3/kstplugins/*.xml
 %{_datadir}/apps/kconf_update/*
 %{_datadir}/apps/kst
 %{_datadir}/config/colors/*
@@ -89,12 +84,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kst
 %{_datadir}/servicetypes/kst
 %{_desktopdir}/kde/*
-%{_mandir}/man1/*
 %{_iconsdir}/*/*/*/*
+%{_mandir}/man1/*
 
 %files devel -f %{name}.lang
 %defattr(644,root,root,755)
-%{_includedir}/*
+%attr(755,root,root) %{_libdir}/*.so
 %{_libdir}/*.la
+%attr(755,root,root) %{_libdir}/kde3/plugins/designer/kstwidgets.so
 %{_libdir}/kde3/plugins/designer/kstwidgets.la
-%{_libdir}/kde3/plugins/designer/kstwidgets.so
+%{_includedir}/*
