@@ -1,12 +1,12 @@
 Summary:	A data viewing program for KDE
 Summary(pl):	Program do przegl±dania danych pod KDE
 Name:		kst
-Version:	1.2.0
+Version:	1.3.1
 Release:	0.1
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://ftp.kde.org/pub/kde/stable/apps/KDE3.x/scientific/%{name}-%{version}.tar.gz
-# Source0-md5:	789aac131edb24cdefbb90634cbb4b56
+# Source0-md5:	b18013223dc4cc2d1d0c8c4197bf8f97
 URL:		http://kst.kde.org
 BuildRequires:	cfitsio-devel
 BuildRequires:	gsl-devel
