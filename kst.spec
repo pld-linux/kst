@@ -1,5 +1,5 @@
 Summary:	A data viewing program for KDE
-Summary(pl):	Program do przegl±dania danych pod KDE
+Summary(pl.UTF-8):   Program do przeglƒÖdania danych pod KDE
 Name:		kst
 Version:	1.3.1
 Release:	0.1
@@ -20,13 +20,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Kst is a real-time data viewing and plotting tool with basic data
 analysis functionality.
 
-%description -l pl
-Kst to narzÍdzie do przegl±dania danych i rysowania wykresÛw w czasie
+%description -l pl.UTF-8
+Kst to narzƒôdzie do przeglƒÖdania danych i rysowania wykres√≥w w czasie
 rzeczywistym z podstawowymi funkcjami analizy danych.
 
 %package devel
 Summary:	kst header files
-Summary(pl):	Pliki nag≥Ûwkowe do kst
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe do kst
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	kdelibs-devel >= 9:3.1
@@ -34,8 +34,8 @@ Requires:	kdelibs-devel >= 9:3.1
 %description devel
 kst files for developing applications.
 
-%description devel -l pl
-Pliki nag≥Ûwkowe potrzebne przy tworzeniu innych aplikacji.
+%description devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe potrzebne przy tworzeniu innych aplikacji.
 
 %prep
 %setup -q
