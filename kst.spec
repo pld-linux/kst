@@ -1,5 +1,5 @@
 Summary:	A data viewing program for KDE
-Summary(pl.UTF-8):   Program do przeglądania danych pod KDE
+Summary(pl.UTF-8):	Program do przeglądania danych pod KDE
 Name:		kst
 Version:	1.3.1
 Release:	0.1
@@ -26,7 +26,7 @@ rzeczywistym z podstawowymi funkcjami analizy danych.
 
 %package devel
 Summary:	kst header files
-Summary(pl.UTF-8):   Pliki nagłówkowe do kst
+Summary(pl.UTF-8):	Pliki nagłówkowe do kst
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	kdelibs-devel >= 9:3.1
